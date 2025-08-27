@@ -17,6 +17,12 @@ export default withNuxt(
       },
     },
     {
+      // Add ignores array at the top level
+      ignores: [
+        "**/migrations/**", // This will ignore all files in migrations folders
+        "README.md"
+      ],
+      
       rules: {
         "ts/no-redeclare": "off",
         "ts/consistent-type-definitions": ["error", "type"],
@@ -34,6 +40,7 @@ export default withNuxt(
           "error",
           {
             case: "kebabCase",
+            // You can keep this empty since we're ignoring the folder entirely
             ignore: ["README.md"],
           },
         ],
