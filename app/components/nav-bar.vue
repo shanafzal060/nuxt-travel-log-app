@@ -1,11 +1,11 @@
 <template>
-  <div class="navbar bg-primary text-primary-content">
+  <div class="navbar bg-accent text-accent-content">
     <div class="navbar-start">
-      <NuxtLink to="/" class="btn btn-ghost text-xl">
+      <NuxtLink to="/" class="btn btn-ghost text-xl ">
         Travel Log
       </NuxtLink>
     </div>
-    <div class="navbar-end">
+    <div class="navbar-end ">
       <theme-toggle />
       <signin-button />
     </div>
