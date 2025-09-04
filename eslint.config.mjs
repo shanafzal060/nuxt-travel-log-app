@@ -20,8 +20,7 @@ export default withNuxt(
       // Add ignores array at the top level
       ignores: [
         "**/migrations/**", // This will ignore all files in migrations folders
-        "README.md",
-        ".env"
+        "README.md"
       ],
       
       rules: {
