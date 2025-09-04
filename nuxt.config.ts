@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import tailwindcss from "@tailwindcss/vite";
 
-import env from "./app/lib/env";
+import "./app/lib/env";
 
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
@@ -23,21 +23,6 @@ export default defineNuxtConfig({
   },
   colorMode: {
     dataValue: "theme",
-  },
-  runtimeConfig: {
-    auth: {
-      github: {
-        clientId: env.AUTH_GITHUB_CLIENT_ID,
-        clientSecret: env.AUTH_GITHUB_CLIENT_SECRET,
-      },
-    },
-    public: {
-      auth: {
-        github: {
-          clientId: env.AUTH_GITHUB_CLIENT_ID,
-        },
-      },
-    },
   },
 
 });
