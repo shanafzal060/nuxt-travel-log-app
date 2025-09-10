@@ -1,23 +1,31 @@
 <script lang="ts" setup>
 import { useAuthStore } from "~~/stores/auth";
+import { computed, onMounted } from "vue";
 
 const store = useAuthStore();
+
+// Initialize auth on component mount
+onMounted(() => {
+  store.init();
+});
+// Handle the case where user might be null
+const hasUser = computed(() => store.user && !store.loading);
 </script>
 
 <template>
   <div>
-    <div v-if="store.user && !store.loading" class="dropdown dropdown-end">
+    <div v-if="hasUser" class="dropdown dropdown-end">
       <div tabindex="0" role="button" class=" mr-4">
-        <div v-if="store.user.image" class="avatar avatar-online">
+        <div v-if="store.user?.image" class="avatar avatar-online">
           <div class="w-8 rounded-full">
             <img :src="store.user.image" :alt="store.user.name">
           </div>
         </div>
         <div v-else class="btn">
-          {{ store.user.name }}
+          {{ store.user.name || 'User' }}
         </div>
       </div>
-      <ul tabindex="0" class="dropdown-content menu bg-accent rounded-box z-1 w-52 p-2 shadow-sm">
+      <ul tabindex="0" class="dropdown-content menu bg-accent rounded-box z-1 w-52 p-2 shadow-sm mt-5">
         <li>
           <a @click="store.signOut">
             <icon name="tabler:logout-2" size="20" />Sign Out</a>

@@ -1,7 +1,16 @@
 <script lang="ts" setup>
 import { useAuthStore } from "~~/stores/auth";
+import { onMounted } from "vue";
 
 const store = useAuthStore();
+
+onMounted(() => {
+  store.init();
+});
+
+definePageMeta({
+  layout: "landing",
+});
 </script>
 
 <template>

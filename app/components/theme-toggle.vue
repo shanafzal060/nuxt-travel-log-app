@@ -13,15 +13,17 @@ const isDark = computed({
 </script>
 
 <template>
-  <label class="swap swap-rotate mx-6">
-    <!-- this hidden checkbox controls the state -->
-    <input v-model="isDark" type="checkbox">
+  <div class="tooltip tooltip-bottom " :data-tip="isDark ? 'Light Mode' : 'Dark Mode'">
+    <label class="swap swap-rotate mx-6">
+      <!-- this hidden checkbox controls the state -->
 
-    <!-- sun icon -->
-    <icon class="swap-on" name="tabler:sun" size="24" />
+      <input v-model="isDark" type="checkbox">
+      <!-- sun icon -->
+      <icon class="swap-on" name="tabler:sun" size="24" />
 
-    <!-- moon icon -->
-    <icon class="swap-off" name="tabler:moon" size="24" />
+      <!-- moon icon -->
+      <icon class="swap-off" name="tabler:moon" size="24" />
 
-  </label>
+    </label>
+  </div>
 </template>

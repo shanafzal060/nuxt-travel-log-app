@@ -1,16 +1,26 @@
 import { createAuthClient } from "better-auth/vue";
 
 const authClient = createAuthClient();
-const session = ref(null) as Ref<ReturnType<typeof authClient.getSession>> || null;
+const session = ref<ReturnType<typeof authClient.getSession> | null>(null);
 
 export const useAuthStore = defineStore("useAuthStore", () => {
   async function init() {
-    const data = await authClient.useSession(useFetch);
-    session.value = data;
+    try {
+      const data = await authClient.useSession(useFetch);
+      session.value = data;
+    }
+    catch (error) {
+      console.error("Failed to initialize auth session:", error);
+      session.value = null;
+    }
   }
 
-  const user = computed(() => session.value.data?.user);
-  const loading = computed(() => session.value.isPending);
+  // Safe computed properties that handle null session
+  const user = computed(() => session.value?.data?.user || null);
+  // const loading = computed(() => session.value?.isPending || true);
+  // stores/auth.ts
+  const loading = computed(() => session.value?.isPending ?? false);
+
   async function signIn() {
     await authClient.signIn.social({
       provider: "github",
@@ -18,9 +28,11 @@ export const useAuthStore = defineStore("useAuthStore", () => {
       errorCallbackURL: "/error",
     });
   }
+
   async function signOut() {
     await authClient.signOut();
     navigateTo("/");
   }
-  return { loading, signIn, user, signOut, init };
+
+  return { loading, signIn, user, signOut, init, session };
 });
